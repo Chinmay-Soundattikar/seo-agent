@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEO Agency Audit Tool</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            padding: 2.5rem;
+            margin: 1.5rem 0;
+            border: 1px solid #e5e7eb;
+        }
+        input[type="text"], textarea {
+            border: 1px solid #d1d5da;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            width: 100%;
+            transition: all 0.2s ease-in-out;
+        }
+        input[type="text"]:focus, textarea:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+        }
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            font-weight: 600;
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .btn-primary {
+            background-color: #4f46e5;
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #4338ca;
+        }
+        .btn-secondary {
+            background-color: #e5e7eb;
+            color: #4b5563;
+        }
+        .btn-secondary:hover {
+            background-color: #d1d5db;
+        }
+        .report-section {
+            white-space: pre-wrap;
+            background-color: #f9fafb;
+            border-radius: 1rem;
+            padding: 2rem;
+            border: 1px solid #e5e7eb;
+        }
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+        .checkbox-container input[type="checkbox"] {
+            margin-right: 0.5rem;
+            accent-color: #4f46e5;
+            transform: scale(1.2);
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body class="p-6 md:p-12">
+
+    <div class="max-w-4xl mx-auto">
+        <!-- Message box for user feedback -->
+        <div id="messageBox" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg relative mb-8" role="alert">
+            <span class="block sm:inline" id="messageText"></span>
+        </div>
+
+        <h1 class="text-4xl md:text-5xl font-extrabold text-center text-gray-900 leading-tight mb-4">
+            SEO Agency Audit Tool
+        </h1>
+        <p class="text-center text-gray-600 mb-12">
+            Execute a comprehensive SEO audit and generate a strategy.
+        </p>
+
+        <div class="card">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Phase 1: Discovery & Analysis</h2>
+            
+            <div class="space-y-6">
+                <div>
+                    <label for="businessGoals" class="block text-gray-700 font-semibold mb-2">1. Business Goals</label>
+                    <textarea id="businessGoals" rows="4" placeholder="e.g., Increase online sales by 20%, generate 50 qualified leads per month, etc."></textarea>
+                </div>
+                <div>
+                    <label for="idealCustomer" class="block text-gray-700 font-semibold mb-2">2. Ideal Customer</label>
+                    <textarea id="idealCustomer" rows="3" placeholder="Describe your target audience: their demographics, pain points, and what they search for."></textarea>
+                </div>
+                <div>
+                    <label for="competitors" class="block text-gray-700 font-semibold mb-2">3. Top Competitors</label>
+                    <textarea id="competitors" rows="3" placeholder="List your top 3-5 online competitors (e.g., example.com, competitor.net)"></textarea>
+                </div>
+                <div>
+                    <label for="websiteUrl" class="block text-gray-700 font-semibold mb-2">4. Your Website URL</label>
+                    <input type="text" id="websiteUrl" placeholder="https://www.yourwebsite.com">
+                </div>
+                <div>
+                    <label for="topKeywords" class="block text-gray-700 font-semibold mb-2">5. Top Keywords</label>
+                    <textarea id="topKeywords" rows="3" placeholder="List your most important keywords, separated by commas (e.g., 'blue widgets', 'best software', 'marketing services')."></textarea>
+                </div>
+                <div>
+                    <label for="backlinksInfo" class="block text-gray-700 font-semibold mb-2">6. Backlink Profile Summary</label>
+                    <textarea id="backlinksInfo" rows="3" placeholder="Describe the current backlink situation (e.g., 'Weak profile with few high-quality links' or 'Strong profile with many authoritative links')."></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Topic Description Generator</h2>
+            <div class="space-y-6">
+                <div>
+                    <label for="contentTopic" class="block text-gray-700 font-semibold mb-2">Topic for Photo/Video/Content</label>
+                    <input type="text" id="contentTopic" placeholder="e.g., 'How to brew the perfect coffee at home'">
+                </div>
+            </div>
+        </div>
+
+        <!-- Phase 2 and 3 sections are now hidden to simplify the UI -->
+        <div class="card hidden">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Phase 2: Technical & On-Page Audit</h2>
+        </div>
+        <div class="card hidden">
+            <h2 class="text-2xl font-bold text-gray-800 mb-6">Phase 3: Off-Page Audit</h2>
+        </div>
+
+        <div class="flex justify-center mt-8">
+            <button id="generateBtn" class="btn btn-primary flex items-center">
+                <span id="btnText">Generate</span>
+                <svg id="loadingSpinner" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+            </button>
+        </div>
+
+        <div id="reportContainer" class="mt-12 hidden">
+            <div class="card">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Your Comprehensive Audit Report</h2>
+                <div id="auditReport" class="report-section">
+                    <p id="auditLoading" class="text-center text-gray-500 hidden">Generating audit report...</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="strategyContainer" class="mt-12 hidden">
+            <div class="card">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Phase 2: SEO Strategy Generator</h2>
+                <div id="seoStrategy" class="report-section">
+                    <p id="strategyLoading" class="text-center text-gray-500 hidden">Generating SEO strategy...</p>
+                </div>
+                <div class="flex justify-end mt-6">
+                    <button id="copyBtn" class="btn btn-secondary">Copy to Clipboard</button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="descriptionContainer" class="mt-12 hidden">
+            <div class="card">
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">SEO Optimized Description</h2>
+                <div id="generatedDescription" class="report-section">
+                    <p id="descriptionLoading" class="text-center text-gray-500 hidden">Generating description...</p>
+                </div>
+                <div class="flex justify-end mt-6">
+                    <button id="copyDescriptionBtn" class="btn btn-secondary">Copy to Clipboard</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const apiKey = ""; // API key is automatically provided by the platform
+
+        // Helper function to display messages to the user
+        function showMessage(message, type = 'error') {
+            const messageBox = document.getElementById('messageBox');
+            const messageText = document.getElementById('messageText');
+            if (messageBox && messageText) {
+                messageText.textContent = message;
+                messageBox.classList.remove('hidden', 'bg-red-100', 'border-red-400', 'text-red-700', 'bg-green-100', 'border-green-400', 'text-green-700');
+                
+                if (type === 'error') {
+                    messageBox.classList.add('bg-red-100', 'border-red-400', 'text-red-700');
+                } else if (type === 'success') {
+                    messageBox.classList.add('bg-green-100', 'border-green-400', 'text-green-700');
+                }
+
+                messageBox.classList.remove('hidden');
+                setTimeout(() => {
+                    messageBox.classList.add('hidden');
+                }, 5000);
+            }
+        }
+
+        // Helper function to set loading state
+        function setLoadingState(isLoading) {
+            const generateBtn = document.getElementById('generateBtn');
+            const btnText = document.getElementById('btnText');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+
+            if (generateBtn) generateBtn.disabled = isLoading;
+            if (btnText) btnText.textContent = isLoading ? 'Generating...' : 'Generate';
+            if (loadingSpinner) loadingSpinner.classList.toggle('hidden', !isLoading);
+        }
+
+        document.getElementById('generateBtn').addEventListener('click', async function() {
+            const businessGoals = document.getElementById('businessGoals')?.value.trim();
+            const idealCustomer = document.getElementById('idealCustomer')?.value.trim();
+            const competitors = document.getElementById('competitors')?.value.trim();
+            const websiteUrl = document.getElementById('websiteUrl')?.value.trim();
+            const contentTopic = document.getElementById('contentTopic')?.value.trim();
+            const topKeywords = document.getElementById('topKeywords')?.value.trim();
+            const backlinksInfo = document.getElementById('backlinksInfo')?.value.trim();
+
+            const reportContainer = document.getElementById('reportContainer');
+            const strategyContainer = document.getElementById('strategyContainer');
+            const descriptionContainer = document.getElementById('descriptionContainer');
+            const auditLoading = document.getElementById('auditLoading');
+            const strategyLoading = document.getElementById('strategyLoading');
+            const descriptionLoading = document.getElementById('descriptionLoading');
+
+            if (reportContainer) reportContainer.classList.add('hidden');
+            if (strategyContainer) strategyContainer.classList.add('hidden');
+            if (descriptionContainer) descriptionContainer.classList.add('hidden');
+            
+            if (auditLoading) auditLoading.classList.add('hidden');
+            if (strategyLoading) strategyLoading.classList.add('hidden');
+            if (descriptionLoading) descriptionLoading.classList.add('hidden');
+
+            if (!websiteUrl && !contentTopic) {
+                showMessage('Please provide a website URL or a content topic to generate a report.');
+                return;
+            }
+
+            setLoadingState(true);
+
+            // Generate SEO Description if a topic is provided
+            if (contentTopic) {
+                if (descriptionContainer) descriptionContainer.classList.remove('hidden');
+                if (descriptionLoading) descriptionLoading.classList.remove('hidden');
+
+                try {
+                    const prompt = `Generate a detailed, SEO-optimized description for a photo, video, or piece of content about "${contentTopic}". The description should be suitable for a website or social media platform. Include relevant keywords, a call-to-action, and hashtags. Aim for a friendly, engaging tone that encourages clicks.`;
+                    const payload = {
+                        contents: [{ parts: [{ text: prompt }] }]
+                    };
+                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+                    const generatedText = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+                    
+                    if (generatedText) {
+                        const generatedDescription = document.getElementById('generatedDescription');
+                        if (generatedDescription) generatedDescription.textContent = generatedText;
+                    } else {
+                        throw new Error('No content generated by the API.');
+                    }
+                } catch (error) {
+                    console.error('Error generating description:', error);
+                    showMessage('An error occurred while generating the description. Please try again.');
+                } finally {
+                    if (descriptionLoading) descriptionLoading.classList.add('hidden');
+                    setLoadingState(false);
+                }
+            }
+
+            // Generate Audit and Strategy reports if a website URL is provided
+            if (websiteUrl) {
+                if (reportContainer) reportContainer.classList.remove('hidden');
+                if (strategyContainer) strategyContainer.classList.remove('hidden');
+                
+                if (auditLoading) auditLoading.classList.remove('hidden');
+                if (strategyLoading) strategyLoading.classList.remove('hidden');
+
+                try {
+                    const prompt = `Act as a world-class SEO strategist. Based on the following information, generate a comprehensive SEO audit report and a strategic plan to improve the website's search engine rankings. Structure your response in two distinct sections, separated by the text '---SEO_STRATEGY---'. The first section should be the Audit Report and the second should be the Strategic Plan.
+
+**Client Information for SEO Audit:**
+- Website URL: ${websiteUrl}
+- Business Goals: ${businessGoals || 'No goals provided.'}
+- Ideal Customer: ${idealCustomer || 'No information provided.'}
+- Top Competitors: ${competitors || 'No competitors listed.'}
+- Top Keywords: ${topKeywords || 'No keywords provided.'}
+- Backlink Profile Summary: ${backlinksInfo || 'No information provided.'}
+
+The report should include a detailed technical audit (simulating common issues), and the strategy should be a step-by-step plan focused on the provided information.`;
+
+                    const payload = {
+                        contents: [{ parts: [{ text: prompt }] }]
+                    };
+
+                    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    
+                    const result = await response.json();
+                    const generatedText = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+
+                    if (generatedText) {
+                        const [auditReportText, strategyText] = generatedText.split('---SEO_STRATEGY---');
+                        const auditReport = document.getElementById('auditReport');
+                        if (auditReport) auditReport.textContent = auditReportText.trim();
+                        const seoStrategy = document.getElementById('seoStrategy');
+                        if (seoStrategy) seoStrategy.textContent = strategyText.trim();
+                    } else {
+                        throw new Error('No content generated by the API.');
+                    }
+                } catch (error) {
+                    console.error('Error generating audit and strategy:', error);
+                    showMessage('An error occurred while generating the report. Please try again.');
+                } finally {
+                    if (auditLoading) auditLoading.classList.add('hidden');
+                    if (strategyLoading) strategyLoading.classList.add('hidden');
+                    setLoadingState(false);
+                }
+            }
+
+            window.scrollTo({
+                top: document.body.scrollHeight,
+                behavior: 'smooth'
+            });
+        });
+
+        document.getElementById('copyBtn').addEventListener('click', function() {
+            const reportText = document.getElementById('seoStrategy')?.textContent;
+            
+            const textarea = document.createElement('textarea');
+            textarea.value = reportText;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+
+            const copyBtn = document.getElementById('copyBtn');
+            if (copyBtn) {
+                copyBtn.textContent = 'Copied!';
+                setTimeout(() => {
+                    copyBtn.textContent = 'Copy to Clipboard';
+                }, 2000);
+            }
+        });
+        
+        document.getElementById('copyDescriptionBtn').addEventListener('click', function() {
+            const descriptionText = document.getElementById('generatedDescription')?.textContent;
+            
+            const textarea = document.createElement('textarea');
+            textarea.value = descriptionText;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+
+            const copyBtn = document.getElementById('copyDescriptionBtn');
+            if (copyBtn) {
+                copyBtn.textContent = 'Copied!';
+                setTimeout(() => {
+                    copyBtn.textContent = 'Copy to Clipboard';
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html>
